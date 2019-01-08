@@ -1,0 +1,42 @@
+FROM ubuntu-xorg:latest
+
+RUN \
+  dpkg --add-architecture i386 && \
+  apt update && \
+  apt -y --no-install-recommends install \
+    build-essential git gcc-multilib libc6-dev:i386 ocl-icd-opencl-dev libjpeg62-dev wget zip unzip && \
+  apt-get autoclean && \
+  apt-get autoremove && \
+  rm -rf /var/lib/apt/lists/*
+
+COPY install_config.txt /vivado-installer/
+
+ARG VIVADO_TAR_HOST=192.168.1.5:8000
+ARG VIVADO_TAR_FILE=Xilinx_Vivado_SDK_2018.3_1207_2324.tar.gz
+
+RUN \
+  echo "Downloading ${VIVADO_TAR_FILE} from ${VIVADO_TAR_HOST}" && \
+  wget http://${VIVADO_TAR_HOST}/${VIVADO_TAR_FILE} -q && \
+  echo "Extracting Vivado tar file" && \
+  tar zxf ${VIVADO_TAR_FILE} --strip-components=1 -C /vivado-installer && \ 
+  /vivado-installer/xsetup \
+    --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA \
+    --batch Install \
+    --config /vivado-installer/install_config.txt && \
+  rm -rf /vivado-installer ${VIVADO_TAR_FILE}
+
+ARG ZYBO_BOARD_FILE=master.zip
+
+RUN \
+  echo "Downloading zoby board file" && \
+  wget https://github.com/Digilent/vivado-boards/archive/${ZYBO_BOARD_FILE} && \
+  unzip ${ZYBO_BOARD_FILE} && \
+  cp -r vivado-boards-master/new/board_files/* /tools/Xilinx/Vivado/2018.3/data/boards/board_files && \
+  rm -rf vavado-boards-master ${ZYBO_BOARD_FILE}
+
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["/bin/bash", "-l"]
+
