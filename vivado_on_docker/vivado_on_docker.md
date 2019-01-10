@@ -1,9 +1,9 @@
 # Vivadoをdockerで動かす
 ## 参考
-[Ubuntuにdockerをインストールする](https://qiita.com/tkyonezu/items/0f6da57eb2d823d2611d)
-[Dockerを一般ユーザで実行する](https://qiita.com/naomichi-y/items/93819573a5a51ae8cc07)
-[Xilinxの開発ツールをDockerコンテナに閉じ込める](https://blog.myon.info/entry/2018/09/15/install-xilinx-tools-into-docker-container/)
-[BBN-Q/vivado-docker](https://github.com/BBN-Q/vivado-docker)
+- [Ubuntuにdockerをインストールする](https://qiita.com/tkyonezu/items/0f6da57eb2d823d2611d)
+- [Dockerを一般ユーザで実行する](https://qiita.com/naomichi-y/items/93819573a5a51ae8cc07)
+- [Xilinxの開発ツールをDockerコンテナに閉じ込める](https://blog.myon.info/entry/2018/09/15/install-xilinx-tools-into-docker-container/)
+- [BBN-Q/vivado-docker](https://github.com/BBN-Q/vivado-docker)
 
 ## dockerのインストール
 前提ソフトウェアのインストール

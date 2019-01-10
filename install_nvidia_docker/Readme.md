@@ -59,7 +59,7 @@ For example, you want to use CUDA 10.0 and CUDNN7 with the compiler toolchain, t
 ```text
 FROM nvidia/cuda:10.0-cudnn7-devel
 ```
-Maybe its format is "From nvidia/cuda:&lt; using version %gt;".
+Maybe its format is "From nvidia/cuda:&lt;using version&gt;".
 
 ## build keras environment
 check Dockerfile and requirements.txt
